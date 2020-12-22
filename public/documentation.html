@@ -4,9 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movietron</title>
+  <style>
+    table {
+      border: 1px solid black;
+    }
+
+    td {
+      border: 1px solid seagreen;
+    }
+  </style>
 </head>
 <body>
   <h1>Documentation Page</h1>
-  <p>Welcome to the movie app</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Business Logic</th>
+        <th>endpoint URL</th>
+        <th>HTTP Method</th>
+        <th>Request</th>
+        <th>Response</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Return a list of ALL movies to the user
+        </td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all movies</td>
+      </tr>  
+      <tr>
+        <td>
+          Return data about a single movie by title to the user
+        </td>
+        <td>/movies/[title]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data - description, genre, director, image URL</td>
+      </tr>  
+      <tr>
+        <td>
+          Return data about a genre (description) by name/title (e.g., “Thriller”)
+        </td>
+        <td>/movies/[genre]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A text message about what kind of genre movie is</td>
+      </tr>  
+      <tr>
+        <td>
+          Return data about a director by name
+        </td>
+        <td>/movies/[director]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about director (bio, birth year, death year)</td>
+      </tr>  
+      <tr>
+        <td>
+          Allow new users to register
+        </td>
+        <td>/movies/[users]</td>
+        <td>POST</td>
+        <td>A JSON object holding data about the user to add <br>
+          { 
+            "name": "Jason Smith",
+            "age": 29,
+            "myFavMovies": "Terminator, Ace Ventura"  
+          }     
+        </td>
+        <td>A JSON object holding data about the user added including a random Username
+          <br>
+          { 
+            "name": "Jason Smith",
+            "age": 29,
+            "myFavMovies": "Terminator, Ace Ventura",
+            "username": "JsnSmithy"  
+          }     
+        </td>
+      </tr>  
+      <tr>
+        <td>
+          Allow users to update their user info (username)
+        </td>
+        <td>/movies/[users]/[username]</td>
+        <td>PUT</td>
+        <td>None</td>
+        <td>
+          Text message that user info is updated<br>"Your username is changed !"
+        </td>
+      </tr>  
+      <tr>
+        <td>
+          Allow users to add a movie to their list of favorites 
+        </td>
+        <td>/movies/[users]/[favorites]</td>
+        <td>POST</td>
+        <td>
+          JSON object holding data about the movie title they want to add<br> 
+          {
+            "movie": "Lord of the rings",
+            "director": "Peter Jackson",
+            "year": "2001"
+          }
+        </td>
+        <td>showing only a text that a movie has been added<br> "Your movie was added to the list!"</td>
+      </tr>  
+      <tr>
+        <td>
+          Allow users to remove a movie from their list of favorites
+        </td>
+        <td>/movies/[users]/[favorites]/[list]</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>
+          showing only a text that a movie has been removed<br> "Your movie was removed from the list!"
+        </td>
+      </tr>  
+      <tr>
+        <td>
+          Allow existing users to deregister
+        </td>
+        <td>/movies/[users]/[email]</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>
+          showing only a text that a user email has been removed<br> "Your email was removed."
+        </td>
+      </tr>  
+    </tbody>
+  </table>
 </body>
 </html>
