@@ -29,106 +29,146 @@
     <tbody>
       <tr>
         <td>
+          Welcome message
+        </td>
+        <td>/</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>Text- WElcome to....</td>
+      </tr>  
+      <tr>
+      <tr>
+        <td>
           Return a list of ALL movies to the user
         </td>
         <td>/movies</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data about all movies</td>
+        <td>A JSON object holding data about all movies(Genre, Director, Title, Description, ImagePath, id, Featured )</td>
       </tr>  
       <tr>
         <td>
           Return data about a single movie by title to the user
         </td>
-        <td>/movies/[title]</td>
+        <td>/movies/[Title]</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data - description, genre, director, image URL</td>
+        <td>A JSON object holding data - Genre, Director, id, title, Description, ImagePath, Featured</td>
       </tr>  
       <tr>
         <td>
-          Return data about a genre (description) by name/title (e.g., “Thriller”)
+          Return data about ALL genres 
         </td>
-        <td>/movies/[genre]</td>
+        <td>/genres</td>
         <td>GET</td>
         <td>None</td>
-        <td>A text message about what kind of genre movie is</td>
+        <td>A JSON object with Name, Description and id for all genres</td>
+      </tr>  
+      <tr>
+        <td>
+          Return data about a GENRE by name
+        </td>
+        <td>/genres/[Name]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object that gives info on genre by name { Name: "Action", Description: "Action film is a film genre..."</td>
       </tr>  
       <tr>
         <td>
           Return data about a director by name
         </td>
-        <td>/movies/[director]</td>
+        <td>/directors[Name]</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data about director (bio, birth year, death year)</td>
+        <td>A JSON object that gives info on director by name (id, Name, Bio, Birth)</td>
+      </tr>  
+      <tr>
+        <td>
+          Return all users
+        </td>
+        <td>/users</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object that gives info on all users (FavoriteMovies, id, Username, Pass, Email, Birthday)</td>
+      </tr>  
+      <tr>
+        <td>
+          Return a user by username
+        </td>
+        <td>/users/[Username]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object that gives info on one user by name(same attributes as /users )</td>
       </tr>  
       <tr>
         <td>
           Allow new users to register
         </td>
-        <td>/movies/[users]</td>
+        <td>/users</td>
         <td>POST</td>
         <td>A JSON object holding data about the user to add <br>
           { 
-            "name": "Jason Smith",
-            "age": 29,
-            "myFavMovies": "Terminator, Ace Ventura"  
+            "Username": "String",
+            "Password": "String",
+            "Email": "String",
+            "Birthday" "Date"
           }     
         </td>
-        <td>A JSON object holding data about the user added including a random Username
-          <br>
-          { 
-            "name": "Jason Smith",
-            "age": 29,
-            "myFavMovies": "Terminator, Ace Ventura",
-            "username": "JsnSmithy"  
-          }     
+        <td>A JSON object holding data about the user added including a random ID
+        </td>
+      </tr>  
+      <tr>
+        <td>
+          Users add a movie to user list of favorites
+        </td>
+        <td>/users/[Username]/Movies/[MovieID]</td>
+        <td>POST</td>
+        <td>None
+           
+        </td>
+        <td>A JSON object holding data about the user and new added movieID in array FavoriteMovies
+        </td>
+      </tr>  
+      <tr>
+        <td>
+          Users remove a movie from user list of favorites
+        </td>
+        <td>/users/[Username]/Movies/[MovieID]</td>
+        <td>PUT</td>
+        <td>None
+           
+        </td>
+        <td>A JSON object holding data about the user and removed movieID in array FavoriteMovies
         </td>
       </tr>  
       <tr>
         <td>
           Allow users to update their user info (username)
         </td>
-        <td>/movies/[users]/[username]</td>
+        <td>/users/[Username]</td>
         <td>PUT</td>
-        <td>None</td>
+        <td>A JSON object holding data about the user to UPDATE
+          { "Username": "String", "Password": "String", "Email": "String", "Birthday" "Date" }</td>
         <td>
-          Text message that user info is updated<br>"Your username is changed !"
+          A JSON object holding data that is updated and the data that stays the same"
         </td>
       </tr>  
       <tr>
         <td>
-          Allow users to add a movie to their list of favorites 
+          Delete a user by username
         </td>
-        <td>/movies/[users]/[favorites]</td>
-        <td>POST</td>
-        <td>
-          JSON object holding data about the movie title they want to add<br> 
-          {
-            "movie": "Lord of the rings",
-            "director": "Peter Jackson",
-            "year": "2001"
-          }
-        </td>
-        <td>showing only a text that a movie has been added<br> "Your movie was added to the list!"</td>
-      </tr>  
-      <tr>
-        <td>
-          Allow users to remove a movie from their list of favorites
-        </td>
-        <td>/movies/[users]/[favorites]/[list]</td>
+        <td>/users/[Username]</td>
         <td>DELETE</td>
         <td>None</td>
         <td>
-          showing only a text that a movie has been removed<br> "Your movie was removed from the list!"
+          Showing text message "User was deleted"
         </td>
       </tr>  
       <tr>
         <td>
           Allow existing users to deregister
         </td>
-        <td>/movies/[users]/[email]</td>
+        <td>/users/[Name]/[Email]</td>
         <td>DELETE</td>
         <td>None</td>
         <td>
