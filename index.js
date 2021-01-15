@@ -19,7 +19,11 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-mongoose.connect('mongodb://localhost:27017/db', {
+// mongoose.connect('mongodb://localhost:27017/db', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -28,13 +32,13 @@ mongoose.connect('mongodb://localhost:27017/db', {
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-let auth = require('./auth')(app);
+// let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
 app.use(express.static('public'));
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'mongodb://localhost:27017/db'];
 
 app.use(
   cors({
@@ -353,7 +357,6 @@ app.delete(
   }
 );
 
-// listen for requests
 app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port);
 });
