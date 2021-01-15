@@ -38,7 +38,7 @@ require('./passport');
 
 app.use(express.static('public'));
 
-let allowedOrigins = ['http://localhost:8080', 'mongodb://localhost:27017/db'];
+let allowedOrigins = ['http://localhost:8080'];
 
 app.use(
   cors({
