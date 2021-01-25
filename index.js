@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 });
 
 // 🔶 Return a list of ALL movies to the user
-app.get('/movies', (req, res) => {
+app.get('/movies', cors(), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
