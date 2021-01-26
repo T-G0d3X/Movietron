@@ -2,7 +2,6 @@ const port = process.env.PORT || 8080;
 
 const { check, validationResult } = require('express-validator');
 
-const cors = require('cors');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -12,7 +11,11 @@ const express = require('express'),
 const morgan = require('morgan');
 const { response } = require('express');
 const { property } = require('lodash');
+
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -37,7 +40,6 @@ const passport = require('passport');
 require('./passport');
 
 app.use(express.static('public'));
-app.use(cors());
 
 // ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
@@ -53,7 +55,7 @@ app.get('/', (req, res) => {
 });
 
 // 🔶 Return a list of ALL movies to the user
-app.get('/movies', cors(), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
