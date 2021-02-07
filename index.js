@@ -39,6 +39,8 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+app.use(auth);
+
 app.use(express.static('public'));
 
 // ERROR-HANDLING MIDDLEWARE FUNCTION
