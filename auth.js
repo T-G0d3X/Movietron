@@ -1,5 +1,7 @@
-// Create a new endpoint for the API with the URL /login. Create a new endpoint for registered users to log in. This code will authenticate login requests using basic HTTP authentication and generate a JWT for the user
-
+/**
+ * New endpoint for the API with the URL /login, for registered users to log in. This code will authenticate login  *  requests using basic HTTP authentication and generate a JWT for the user
+ *
+ */
 const jwtSecret = 'your_jwt_secret'; // needs to be the same key used in JWTStrategy
 
 const jwt = require('jsonwebtoken'),
@@ -7,6 +9,11 @@ const jwt = require('jsonwebtoken'),
 
 require('./passport'); // Your local passport file
 
+/**
+ *
+ * @param {string} user
+ * @ returns JWT token
+ */
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
     subject: user.Username, // This is the username youre encoding in the JWT
@@ -15,7 +22,10 @@ let generateJWTToken = (user) => {
   });
 };
 
-// Post login
+/**
+ * POST login
+ * @param {string} router
+ */
 module.exports = (router) => {
   router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (error, user, info) => {

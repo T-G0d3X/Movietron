@@ -1,37 +1,34 @@
+/**
+ * API for movietron project
+ * index.js is the main entry point. This document show the different functions
+ * and endpoints for the api.
+ */
+
 const port = process.env.PORT || 8080;
-
 const { check, validationResult } = require('express-validator');
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
 const express = require('express'),
   bodyParser = require('body-parser');
-
 const morgan = require('morgan');
 const { response } = require('express');
 const { property } = require('lodash');
-
 const cors = require('cors');
 const app = express();
-
 app.use(cors());
-
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-// mongoose.connect('mongodb://localhost:27017/db', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// log requests to server
+/**
+ * Log request to server
+ */
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
@@ -41,7 +38,6 @@ require('./passport');
 
 app.use(express.static('public'));
 
-// ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something is not working!');
@@ -49,12 +45,16 @@ app.use((err, req, res, next) => {
 
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
-//❌ default text response when at  / ❌
+
+// default text response when at  / homepage
+
 app.get('/', (req, res) => {
   res.send('Welcome to my Movietron app!');
 });
 
-// 🔶 Return a list of ALL movies to the user
+/**
+ * Return a list of ALL movies to the user
+ */
 app.get(
   '/movies',
   passport.authenticate('jwt', { session: false }),
@@ -70,7 +70,9 @@ app.get(
   }
 );
 
-// Get movie info using specific title
+/**
+ * Get movie info using specific title
+ */
 app.get(
   '/movies/:Title',
   passport.authenticate('jwt', { session: false }),
@@ -86,7 +88,9 @@ app.get(
   }
 );
 
-// 🔶 Get all genres
+/**
+ * Get all genres
+ */
 app.get(
   '/genres',
   passport.authenticate('jwt', { session: false }),
@@ -102,7 +106,9 @@ app.get(
   }
 );
 
-// Get JSON genre info when looking for specific genre
+/**
+ * Get JSON genre info when looking for specific genre
+ */
 app.get(
   '/genres/:Name',
   passport.authenticate('jwt', { session: false }),
@@ -118,7 +124,9 @@ app.get(
   }
 );
 
-// 🔶 Return data about a director by name
+/**
+ *  Return data about a director by name
+ */
 app.get(
   '/directors/:Name',
   passport.authenticate('jwt', { session: false }),
@@ -134,7 +142,9 @@ app.get(
   }
 );
 
-// 🔶 Get all users
+/**
+ * Get all users
+ */
 app.get(
   '/users',
   passport.authenticate('jwt', { session: false }),
@@ -150,7 +160,9 @@ app.get(
   }
 );
 
-// Get a user by username
+/**
+ * Get a user by username
+ */
 app.get(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
@@ -166,7 +178,9 @@ app.get(
   }
 );
 
-//  ❌ Allow new users to register ❌
+/**
+ * Allow new users to register
+ */
 app.post(
   '/users',
   [
@@ -214,7 +228,9 @@ app.post(
   }
 );
 
-// users add a movie to user list of favorites
+/**
+ * users add a movie to user list of favorites
+ */
 app.post(
   '/users/:Username/Movies/:MovieID',
   passport.authenticate('jwt', { session: false }),
@@ -237,7 +253,9 @@ app.post(
   }
 );
 
-// ❌ users REMOVE a movie from user list of favorites❌
+/**
+ * users REMOVE a movie from user list of favorites
+ */
 app.delete(
   '/users/:Username/Movies/:MovieID',
   passport.authenticate('jwt', { session: false }),
@@ -260,7 +278,9 @@ app.delete(
   }
 );
 
-//  Allow users to update thier user info(by username)
+/**
+ * Allow users to update thier user info(by username)
+ */
 app.put(
   '/users/:Username',
   [
@@ -303,7 +323,9 @@ app.put(
   }
 );
 
-// ❌ Delete a user by username ❌
+/**
+ *  Delete a user by username
+ */
 app.delete(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
@@ -323,7 +345,9 @@ app.delete(
   }
 );
 
-// Allow existing users to remove email(deregister)
+/**
+ * Allow existing users to remove email(deregister)
+ */
 app.delete(
   '/users/:Name/:Email',
   passport.authenticate('jwt', { session: false }),

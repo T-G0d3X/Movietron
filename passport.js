@@ -7,6 +7,9 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
+/**
+ * defines basic HTTP authentication for login requests, checks mongoose for username
+ */
 passport.use(
   new LocalStrategy(
     {
@@ -41,6 +44,9 @@ passport.use(
 );
 
 passport.use(
+  /**
+   * JWT is extracted from header of HTTP request
+   */
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
